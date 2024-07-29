@@ -108,6 +108,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func gameOver(){
         //implement a game over scene soon
         print("Game OVer!")
+        
+        if let view = self.view{
+            let scene = GameOverScene(size: view.bounds.size)
+            scene.scaleMode = .aspectFill
+            view.presentScene(scene, transition: SKTransition.fade(withDuration: 1.0))
+        }
     }
 }
 
