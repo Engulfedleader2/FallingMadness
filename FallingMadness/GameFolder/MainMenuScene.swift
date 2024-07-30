@@ -17,7 +17,7 @@ class MainMenuScene: SKScene{
         // Define the ad size manually
         let adSize = GADAdSizeFromCGSize(CGSize(width: 320, height: 50))
         let banner = GADBannerView(adSize: adSize)
-        banner.adUnitID = "TO DO"
+        banner.adUnitID = "HIDDNE VARIABLE"
         return banner
     }()
     
