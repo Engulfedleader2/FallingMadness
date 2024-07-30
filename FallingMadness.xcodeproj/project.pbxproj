@@ -3,37 +3,19 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 74;
+	objectVersion = 70;
 	objects = {
+
+/* Begin PBXBuildFile section */
+		ACD548B92C596F14003B45AB /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = ACD548B82C596F14003B45AB /* GoogleMobileAds */; };
+/* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		ACE4BA8A2C57F27A00EAA086 /* FallingMadness.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FallingMadness.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		ACE4BA9F2C57F27E00EAA086 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				/Localized/LaunchScreen.storyboard,
-				/Localized/Main.storyboard,
-			);
-			target = ACE4BA892C57F27A00EAA086 /* FallingMadness */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
-/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
-		ACE4BAA32C57F27E00EAA086 /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
-			buildPhase = ACE4BA882C57F27A00EAA086 /* Resources */;
-			membershipExceptions = (
-				Base.lproj/LaunchScreen.storyboard,
-				Base.lproj/Main.storyboard,
-			);
-		};
-/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		ACE4BA8C2C57F27A00EAA086 /* FallingMadness */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (ACE4BA9F2C57F27E00EAA086 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ACE4BAA32C57F27E00EAA086 /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = FallingMadness; sourceTree = "<group>"; };
+		ACE4BA8C2C57F27A00EAA086 /* FallingMadness */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = FallingMadness; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +23,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ACD548B92C596F14003B45AB /* GoogleMobileAds in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,6 +66,7 @@
 			);
 			name = FallingMadness;
 			packageProductDependencies = (
+				ACD548B82C596F14003B45AB /* GoogleMobileAds */,
 			);
 			productName = FallingMadness;
 			productReference = ACE4BA8A2C57F27A00EAA086 /* FallingMadness.app */;
@@ -104,6 +88,7 @@
 				};
 			};
 			buildConfigurationList = ACE4BA852C57F27A00EAA086 /* Build configuration list for PBXProject "FallingMadness" */;
+			compatibilityVersion = "Xcode 15.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -111,7 +96,9 @@
 				Base,
 			);
 			mainGroup = ACE4BA812C57F27A00EAA086;
-			preferredProjectObjectVersion = 60;
+			packageReferences = (
+				ACD548B72C596F14003B45AB /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
+			);
 			productRefGroup = ACE4BA8B2C57F27A00EAA086 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -341,6 +328,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		ACD548B72C596F14003B45AB /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/googleads/swift-package-manager-google-mobile-ads.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.7.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		ACD548B82C596F14003B45AB /* GoogleMobileAds */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = ACD548B72C596F14003B45AB /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */;
+			productName = GoogleMobileAds;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = ACE4BA822C57F27A00EAA086 /* Project object */;
 }

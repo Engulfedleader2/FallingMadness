@@ -7,10 +7,20 @@
 
 import Foundation
 import SpriteKit
+import GoogleMobileAds
 
 class MainMenuScene: SKScene{
     
     var startButton: SKLabelNode!
+    
+    private let banner: GADBannerView = {
+        // Define the ad size manually
+        let adSize = GADAdSizeFromCGSize(CGSize(width: 320, height: 50))
+        let banner = GADBannerView(adSize: adSize)
+        banner.adUnitID = "TO DO"
+        return banner
+    }()
+    
     
     override func didMove(to view: SKView) {
         // Setup background
@@ -26,6 +36,24 @@ class MainMenuScene: SKScene{
         startButton.fontColor = SKColor.white
         startButton.name = "startButton"
         addChild(startButton)
+        
+        // Add banner to the view
+                banner.rootViewController = view.window?.rootViewController
+                
+        // Set banner constraints
+        banner.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(banner)
+                
+        NSLayoutConstraint.activate([
+            banner.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            banner.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            banner.heightAnchor.constraint(equalToConstant: banner.adSize.size.height),
+            banner.widthAnchor.constraint(equalToConstant: banner.adSize.size.width)
+        ])
+        
+        // Load the banner ad
+        banner.load(GADRequest())
+        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
