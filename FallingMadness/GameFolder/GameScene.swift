@@ -26,6 +26,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    var spawnInterval: TimeInterval = 1.0
+    let minSpawnIntervan: TimeInterval = 0.5
+    let spawnDecreaseRate: TimeInterval = 0.1
+    
+    var fallSpeed: CGFloat = 300.00
+    let maxFallSpeed: CGFloat = 1000.0
+    let speedIncreaseRate: CGFloat = 20.0
+    
+    
     override func didMove(to view: SKView) {
         physicsWorld.gravity = CGVector(dx: 0, dy: -9.8)
         physicsWorld.contactDelegate = self
@@ -61,13 +70,40 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         ground.physicsBody?.collisionBitMask = PhysicsCategory.fallingObject
         addChild(ground)
 
+        startSpawning()
+        startIncreasingDifficulty()
+
+    }
+    func startSpawning(){
         let spawn = SKAction.run {
             self.spawnFallingObject()
         }
-        let wait = SKAction.wait(forDuration: 1.0)
+        let wait = SKAction.wait(forDuration: spawnInterval)
         let sequence = SKAction.sequence([spawn, wait])
         let repeatSpawn = SKAction.repeatForever(sequence)
-        run(repeatSpawn)
+        run(repeatSpawn, withKey: "spawning")
+    }
+    
+    func startIncreasingDifficulty(){
+        let decreaseSpawnInterval = SKAction.run {
+            if self.spawnInterval > self.minSpawnIntervan{
+                self.spawnInterval -= self.spawnDecreaseRate
+                self.removeAction(forKey: "spawning")
+                self.startSpawning()
+            }
+        }
+        let waitToDecreaseSpawnInterval = SKAction.wait(forDuration: 10) // Decrease every 10 seconds
+
+           let increaseFallSpeed = SKAction.run {
+               if self.fallSpeed < self.maxFallSpeed {
+                   self.fallSpeed += self.speedIncreaseRate
+               }
+           }
+        let waitToIncreaseFallSpeed = SKAction.wait(forDuration: 5) // Increase speed every 5 seconds
+
+        let sequence = SKAction.sequence([decreaseSpawnInterval, waitToDecreaseSpawnInterval, increaseFallSpeed, waitToIncreaseFallSpeed])
+        let repeatSequence = SKAction.repeatForever(sequence)
+        run(repeatSequence)
     }
 
     func spawnFallingObject() {
@@ -80,8 +116,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         fallingObject.physicsBody?.contactTestBitMask = PhysicsCategory.player
         fallingObject.physicsBody?.collisionBitMask = PhysicsCategory.ground
         fallingObject.physicsBody?.affectedByGravity = true
+        fallingObject.physicsBody?.velocity = CGVector(dx: 0, dy: -fallSpeed)
         addChild(fallingObject)
     }
+
 
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
