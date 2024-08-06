@@ -25,12 +25,19 @@ class MainMenuScene: SKScene{
     
     
     override func didMove(to view: SKView) {
-        // Setup background
+        setupBackground()
+        setupTitle()
+        setupButtons()
+        addBackgroundmusic()
+        setupBanner(in: view)
+    }
+    private func setupBackground(){
         let background = SKSpriteNode(color: .blue, size: self.size) // or use an image
         background.position = CGPoint(x: self.size.width / 2, y: self.size.height / 2)
         background.zPosition = -1
         addChild(background)
-        
+    }
+    private func setupTitle(){
         // Setup title
         let titleLabel = SKLabelNode(text: "Falling Madness")
         titleLabel.position = CGPoint(x: self.size.width / 2, y: self.size.height - 100)
@@ -38,15 +45,8 @@ class MainMenuScene: SKScene{
         titleLabel.fontColor = SKColor.white
         titleLabel.name = "titleLabel"
         addChild(titleLabel)
-        
-        //Create buttons
-        let buttonYOffset: CGFloat = 150
-        createButton(text: "Start Game", position: CGPoint(x: self.size.width / 2, y: self.size.height / 2 + buttonYOffset), name: "startButton")
-        createButton(text: "Settings", position: CGPoint(x: self.size.width / 2, y: self.size.height / 2 + buttonYOffset - 100), name: "settingsButton")
-        createButton(text: "High Scores", position: CGPoint(x: self.size.width / 2, y: self.size.height / 2 + buttonYOffset - 200), name: "highScoresButton")
-        createButton(text: "Credits", position: CGPoint(x: self.size.width / 2, y: self.size.height / 2 + buttonYOffset - 300), name: "creditsButton")
-          
-               
+    }
+    private func setupBanner(in view: SKView){
         // Add banner to the view & Set banner constraints
         banner.rootViewController = view.window?.rootViewController
         banner.translatesAutoresizingMaskIntoConstraints = false
@@ -61,11 +61,18 @@ class MainMenuScene: SKScene{
         
         // Load the banner ad
         banner.load(GADRequest())
-        
-        // Add background music
+    }
+    private func addBackgroundmusic(){
         let backgroundMusic = SKAudioNode(fileNamed: "1backgroundMusic.mp3")
         addChild(backgroundMusic)
-        
+    }
+    
+    private func setupButtons(){
+        let buttonYOffset: CGFloat = 150
+        createButton(text: "Start Game", position: CGPoint(x: self.size.width / 2, y: self.size.height / 2 + buttonYOffset), name: "startButton")
+        createButton(text: "Settings", position: CGPoint(x: self.size.width / 2, y: self.size.height / 2 + buttonYOffset - 100), name: "settingsButton")
+        createButton(text: "High Scores", position: CGPoint(x: self.size.width / 2, y: self.size.height / 2 + buttonYOffset - 200), name: "highScoresButton")
+        createButton(text: "Store", position: CGPoint(x: self.size.width / 2, y: self.size.height / 2 + buttonYOffset - 300), name: "creditsButton")
     }
     func createButton(text: String, position: CGPoint, name: String){
         let buttonBackground = SKShapeNode(rectOf: CGSize(width: 300, height: 60), cornerRadius: 15)
@@ -119,5 +126,5 @@ class MainMenuScene: SKScene{
            let hostingController = UIHostingController(rootView: settingsView)
            hostingController.modalPresentationStyle = .overFullScreen
            view.window?.rootViewController?.present(hostingController, animated: true, completion: nil)
-       }
+         }
 }
