@@ -72,7 +72,7 @@ class MainMenuScene: SKScene{
         createButton(text: "Start Game", position: CGPoint(x: self.size.width / 2, y: self.size.height / 2 + buttonYOffset), name: "startButton")
         createButton(text: "Settings", position: CGPoint(x: self.size.width / 2, y: self.size.height / 2 + buttonYOffset - 100), name: "settingsButton")
         createButton(text: "High Scores", position: CGPoint(x: self.size.width / 2, y: self.size.height / 2 + buttonYOffset - 200), name: "highScoresButton")
-        createButton(text: "Store", position: CGPoint(x: self.size.width / 2, y: self.size.height / 2 + buttonYOffset - 300), name: "creditsButton")
+        createButton(text: "Store", position: CGPoint(x: self.size.width / 2, y: self.size.height / 2 + buttonYOffset - 300), name: "storeButton")
     }
     func createButton(text: String, position: CGPoint, name: String){
         let buttonBackground = SKShapeNode(rectOf: CGSize(width: 300, height: 60), cornerRadius: 15)

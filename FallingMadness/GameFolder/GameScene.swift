@@ -7,6 +7,7 @@
 
 import SpriteKit
 import GameplayKit
+import Combine
 
 struct PhysicsCategory {
     static let player: UInt32 = 0x1 << 0 // 1
@@ -40,10 +41,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         physicsWorld.contactDelegate = self
         view.showsPhysics = true
 
+        setupBackground()
+        setupPlayer()
+        setupScoreLabel()
+        setupGround()
+        startSpawning()
+        startIncreasingDifficulty()
+        
+        
+
+    }
+    func setupBackground(){
         if let background = childNode(withName: "//background") as? SKSpriteNode {
             background.zPosition = -1
         }
-
+    }
+    func setupPlayer(){
         if let playerNode = childNode(withName: "//player") as? SKSpriteNode {
             player = playerNode
             let hitboxSize = CGSize(width: player.size.width * 0.4, height: player.size.height * 0.6)
@@ -53,14 +66,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             player.physicsBody?.contactTestBitMask = PhysicsCategory.fallingObject
             player.physicsBody?.collisionBitMask = 0
         }
-
+    }
+    func setupScoreLabel(){
         scoreLabel = SKLabelNode(text: "Score: 0")
         scoreLabel.position = CGPoint(x: size.width / 2, y: size.height / 2)
         scoreLabel.fontSize = 40
         scoreLabel.zPosition = 10
         scoreLabel.fontColor = SKColor.black
         addChild(scoreLabel)
-
+    }
+    func setupGround(){
         ground = SKNode()
         ground.position = CGPoint(x: size.width / 2, y: 50)
         ground.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: size.width, height: 1))
@@ -69,11 +84,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         ground.physicsBody?.contactTestBitMask = PhysicsCategory.fallingObject
         ground.physicsBody?.collisionBitMask = PhysicsCategory.fallingObject
         addChild(ground)
-
-        startSpawning()
-        startIncreasingDifficulty()
-
     }
+    func updatePlayerSprite(with item: StoreItem?){
+        guard let item = item else {return}
+        
+        let texture = SKTexture(imageNamed: item.imageName)
+        player.texture = texture
+        player.size = texture.size()
+    }
+    
     func startSpawning(){
         let spawn = SKAction.run {
             self.spawnFallingObject()
