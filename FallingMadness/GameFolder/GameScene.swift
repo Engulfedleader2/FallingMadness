@@ -20,6 +20,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var player: SKSpriteNode!
     var scoreLabel: SKLabelNode!
     var ground: SKNode!
+    var cancellables = Set<AnyCancellable>()
     
     var score: Int = 0 {
         didSet{
@@ -48,7 +49,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         startSpawning()
         startIncreasingDifficulty()
         
-        
+        // Subscribe to equippedItem changes
+        PlayerInventory.shared.$equippedItem
+            .sink { [weak self] item in
+                self?.updatePlayerSprite(with: item)
+            }
+            .store(in: &cancellables)
 
     }
     func setupBackground(){

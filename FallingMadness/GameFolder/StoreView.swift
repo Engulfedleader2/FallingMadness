@@ -15,10 +15,13 @@ struct StoreItem: Identifiable{
 }
 
 struct StoreView: View {
-    @State private var playerCurrency = 1000  // Example in-game currency amount
+    
+    @ObservedObject var inventory = PlayerInventory.shared
+    @Environment(\.presentationMode) var presentationMode
+   // @State private var playerCurrency = 1000  // Example in-game currency amount
     let storeItems = [
         StoreItem(name: "Gerome Boy", price: 100, imageName: "Gerome_Sprite"),
-        StoreItem(name: "Character 2", price: 200, imageName: "character2"),
+        StoreItem(name: "Jasper", price: 200, imageName: "Jasper_Bird"),
         StoreItem(name: "Character 3", price: 300, imageName: "character3"),
         StoreItem(name: "Character 4", price: 400, imageName: "character4")
     ]
@@ -30,7 +33,7 @@ struct StoreView: View {
                     .font(.largeTitle)
                     .padding()
                 
-                Text("Currency: \(playerCurrency)")
+                Text("Currency: \(inventory.currency)")
                     .font(.title)
                     .padding(.bottom, 20)
                 
@@ -53,7 +56,7 @@ struct StoreView: View {
                                         .foregroundColor(.white)
                                         .cornerRadius(10)
                                 }
-                                .disabled(playerCurrency < item.price)
+                                .disabled(inventory.currency < item.price || inventory.purchasedItems.contains { $0.id == item.id })
                             }
                             .padding()
                             .background(Color.gray.opacity(0.2))
@@ -71,17 +74,12 @@ struct StoreView: View {
     }
     
     private func purchase(item: StoreItem) {
-        // Handle purchase logic
-        if playerCurrency >= item.price {
-            playerCurrency -= item.price
-            print("Purchased: \(item.name)")
-        } else {
-            print("Not enough currency")
-        }
+        inventory.purchase(item: item)
+        inventory.equip(item: item)
     }
     
     private func closeView() {
-        // Add logic to dismiss the view
+        presentationMode.wrappedValue.dismiss()
     }
 }
 

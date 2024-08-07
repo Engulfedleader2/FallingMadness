@@ -114,10 +114,14 @@ class MainMenuScene: SKScene{
                 }
             }
         } else if node.name == "settingsButton" {
-            run(SKAction.playSoundFileNamed("buttonClick.wav", waitForCompletion: false))
-            // Transition to the settings view
-            presentSettingsView()
-        }
+                  run(SKAction.playSoundFileNamed("buttonClick.wav", waitForCompletion: false))
+                  // Transition to the settings view
+                  presentSettingsView()
+              } else if node.name == "storeButton" {
+                  run(SKAction.playSoundFileNamed("buttonClick.wav", waitForCompletion: false))
+                  // Transition to the store view
+                  presentStoreView()
+              }
     }
     
     private func presentSettingsView() {
@@ -127,4 +131,11 @@ class MainMenuScene: SKScene{
            hostingController.modalPresentationStyle = .overFullScreen
            view.window?.rootViewController?.present(hostingController, animated: true, completion: nil)
          }
+    private func presentStoreView() {
+        guard let view = self.view else { return }
+        let storeView = StoreView()
+        let hostingController = UIHostingController(rootView: storeView)
+        hostingController.modalPresentationStyle = .overFullScreen
+        view.window?.rootViewController?.present(hostingController, animated: true, completion: nil)
+    }
 }
