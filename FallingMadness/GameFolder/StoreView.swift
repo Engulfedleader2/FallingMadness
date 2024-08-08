@@ -47,16 +47,17 @@ struct StoreView: View {
                                     .padding(.bottom, 10)
                                 Text(item.name)
                                 Text("\(item.price) coins")
+                                
                                 Button(action: {
-                                    purchase(item: item)
+                                    handleAction(for: item)
                                 }) {
-                                    Text("Buy")
+                                    Text(buttonTitle(for: item))
                                         .padding()
-                                        .background(Color.blue)
+                                        .background(buttonColor(for: item))
                                         .foregroundColor(.white)
                                         .cornerRadius(10)
                                 }
-                                .disabled(inventory.currency < item.price || inventory.purchasedItems.contains { $0.id == item.id })
+                                .disabled(!buttonEnabled(for: item))
                             }
                             .padding()
                             .background(Color.gray.opacity(0.2))
@@ -66,17 +67,45 @@ struct StoreView: View {
                     .padding()
                 }
                 .navigationBarItems(leading: Button("Close") {
-                    // Dismiss action
                     closeView()
                 })
             }
         }
     }
     
-    private func purchase(item: StoreItem) {
-        inventory.purchase(item: item)
-        inventory.equip(item: item)
+    
+    private func handleAction(for item: StoreItem){
+        if inventory.purchasedItems.contains(where: {$0.id == item.id}){
+            inventory.equip(item: item)
+        } else {
+            inventory.purchase(item: item)
+        }
     }
+
+    private func buttonTitle(for item: StoreItem) -> String {
+        if inventory.equippedItem?.id == item.id {
+            return "Equipped"
+        } else if inventory.purchasedItems.contains(where: { $0.id == item.id }) {
+            return "Equip"
+        } else {
+            return "Buy"
+        }
+    }
+    
+    private func buttonColor(for item: StoreItem) -> Color {
+        if inventory.equippedItem?.id == item.id {
+            return Color.green
+        } else if inventory.purchasedItems.contains(where: { $0.id == item.id }) {
+            return Color.blue
+        } else {
+            return Color.blue
+        }
+    }
+    
+    private func buttonEnabled(for item: StoreItem) -> Bool {
+        return inventory.currency >= item.price && !(inventory.equippedItem?.id == item.id)
+    }
+    
     
     private func closeView() {
         presentationMode.wrappedValue.dismiss()
