@@ -144,8 +144,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         fallingObject.physicsBody?.velocity = CGVector(dx: 0, dy: -fallSpeed)
         addChild(fallingObject)
     }
-
-
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
          guard let touch = touches.first else { return }
@@ -197,7 +195,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func gameOver(){
         //implement a game over scene soon
-        print("Game OVer!")
+        print("Game Over!")
         
         if let view = self.view{
             let scene = GameOverScene(size: view.bounds.size)

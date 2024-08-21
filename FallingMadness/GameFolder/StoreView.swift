@@ -22,8 +22,9 @@ struct StoreView: View {
     let storeItems = [
         StoreItem(name: "Gerome Boy", price: 100, imageName: "Gerome_Sprite"),
         StoreItem(name: "Jasper", price: 200, imageName: "Jasper_Bird"),
-        StoreItem(name: "Character 3", price: 300, imageName: "character3"),
-        StoreItem(name: "Character 4", price: 400, imageName: "character4")
+        StoreItem(name: "Jen", price: 300, imageName: "Jen_Sprite"),
+        StoreItem(name: "Character 4", price: 400, imageName: "character4"),
+        StoreItem(name: "Character 5", price: 10000, imageName: "character100")
     ]
     
     var body: some View {

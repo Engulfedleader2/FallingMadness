@@ -15,7 +15,9 @@ class PlayerInventory: ObservableObject{
     @Published var purchasedItems: [StoreItem] = []
     @Published var equippedItem: StoreItem?
     
-    private init(){}
+    private init(){
+        
+    }
     
     func purchase(item: StoreItem) {
         if currency >= item.price && !purchasedItems.contains(where: { $0.id == item.id }) {
